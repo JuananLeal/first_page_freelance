@@ -1,0 +1,292 @@
+/* Para generar custom properties */
+
+:root {
+    --primario: #FFC107;
+    --secundario: #0097A7;
+    --gris: #757575;
+
+   /* --fuente-principal: 3.8rem; También lo puedo utilizar con fuentes y cualquier tipo de atributo css */
+}
+/* Tengo que aplicar font-size 62.5% en html y font-size 16px al body, para que los rem se adapten bien */
+
+html{
+    font-size: 62.5%;
+ /* Box-sizing arregla los problemas de CSS con las cajas, el tamaño de estas = tamaño contenido + padding + borde + margen */
+    box-sizing: border-box;/* Hack box model */
+    /* Añado un scroll para que se pare en las zonas que yo desee */
+    scroll-snap-type: y mandatory;
+}
+.servicios,.navegacion-principal,.formulario{
+    /* Donde aplico el scroll, le digo que se centre en la caja navegación o servicios y que cuando haga scroll siempre pare ahí */
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+/* Segunda parte del código para arreglar las cajas en css, de esta forma si pongo un height de x pixeles 
+cuando le agrege luego un padding no agranda el contenedor */
+*,*:before, *:after{
+    box-sizing: inherit;
+}
+
+body{
+    font-size: 16px;
+    font-family: 'Krub', sans-serif;
+    background-image: linear-gradient(to top,#DFE9F3 0%, white 100%);/* Para hacer un degradado de fondo ponemos desde donde y luego el color y en % la altura donde termina */
+}
+
+h1{
+    font-size: 3.8rem;
+}
+h2{
+    font-size: 2.8rem;
+}
+h3{
+    font-size: 1.8rem;
+}
+h1,h2,h3{
+    text-align: center;
+}
+.titulo span { 
+    font-size: 2rem; /* 1rem = 10px */
+}
+
+.contenedor {
+    max-width:120rem;
+    /*margin: 0 auto 0 auto; Movimiento de reloj --> orden : top right bot left */
+    margin: 0 auto; /* CSS entiende que automaticamente 0 es top y bottom y auto es right y left */
+}
+
+.boton{
+    background-color: var(--secundario);
+    color: white;
+    padding: 1rem 3rem;
+    margin-top: 1rem;
+    font-size: 2rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 20rem;
+    text-align: center;
+    border: none;
+}
+.boton:hover{
+    cursor: pointer;
+}
+
+/*Utilidades*/
+.w-100{
+    width: 100%;
+}
+@media (min-width: 768px) {
+    .w-100{
+        width:auto;
+        margin-top: 5rem;
+    }
+}
+
+.alinear-derecha{
+    justify-content: flex-end;
+}
+
+.flex{
+    display: flex;
+}
+
+.sombra { /* Sacado de la página cssmatic --> shadow box */
+-webkit-box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.54);
+-moz-box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.54);
+box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.54);
+background-color: white;
+padding: 2rem;
+border-radius: 2rem;
+}
+.nav-background{
+    background-color: var(--secundario);
+}
+
+.navegacion-principal{
+     /* Utilizo los flexbox, puedo colocarlos en fila (row) o columna (column) --> Por defecto están en row [flex-direction: column;] */
+     display: flex;
+     flex-direction: column;    
+}
+
+/* Cuando bajo los pixeles a un movil tengo problemas para visualizar la barra de navegacion al ponerla como display: flex
+lo pongo por defecto en column, y más de 768px se pone en row */
+
+@media (min-width: 768px) {
+    .navegacion-principal{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* Para los media queries 480px es para móviles, 768px es para tablet, 1140px para pc escritorio o 1400px */
+
+.navegacion-principal a {
+    display: block;
+    text-align: center;
+    color:white;
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem 3rem;
+}
+/* Display: block ejemplo el div, hace que se pongan unos debajo de otros
+   Display: inline ejemplo el nav, hace que se pongan en linea
+   Por defecto ya vienen con un display block o inline */
+   .navegacion-principal a:hover{
+       background-color: var(--primario);
+       color: black;
+   }
+
+   /* Agregamos media queries para que nuestro sitio sea responsive en dispositivos moviles 
+   Un tamaño de pixeles muy utilizado es 480px // 768px se utiliza para tablets 
+
+   He creado un Snippet, Shift + Command + P --> User Snippets --> CSS y doy enter 
+  el Snippet me permite generar automáticamene la sintaxis de un media querie
+  
+  Ahora utilizando mq generaré la sintaxis */
+
+.hero {
+    background-image: url(../img/hero.jpg);
+    /* Por default las imagenes se repiten */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 45rem;
+    /* Contenido-hero es hijo y .hero es el contenedor padre, para poder colocar de forma absoluta al contendor hijo, el contenedor
+    padre debe estar en una posición relativa */
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.contenido-hero {
+/* Si no pongo el contenedor padre como relativo, contenido-hero cogerá como padre el documento */
+position: absolute;
+background-color: rgb(0 0 0 / 70%);
+width: 100%;
+height: 100%;
+/* Al cambiar la dirección del flexbox a columna la alineación se hace de forma horizontal, por eso uso alignt-items */
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+
+
+.contenido-hero h2, .contenido-hero p {
+    color: white;
+}
+
+.ubicacion {
+    display: flex;
+    /* Recuerda aling-items en contenido-hero alineaba horizontalmente porque lo convertimos en columna, como no lo hemos
+    cambiado aqui alinea verticalmente y flex-end alinea hacia abajo */
+    align-items: flex-end;
+}
+
+/* Servicios */
+
+@media (min-width: 768px) {
+    .servicios{
+        /* Es como una tabla, se puede colocar tanto en horizontal como en vertical, a veces flexbox es mejor que grid */
+        display: grid;
+        /* Puedo poner 33.3% 33.3% 33.3% es una opción pero para acortar puedo poner 1 fracción */
+        grid-template-columns: repeat(3,1fr);
+        column-gap: 5rem;
+    }
+}
+/*
+Flex-box : lo utilizaré cuando tenga que alinear o distribuir elementos, por ejemplo; una barra de navegación
+
+Grid : lo utilizaré para organizar los elementos/layout de mi web, como columnas o contenedores 
+*/
+
+.servicio{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.servicio h3{
+    color: var(--secundario);
+    font-weight: normal;
+}
+
+.servicio p {
+    line-height: 2;
+    text-align: center;
+}
+
+.servicio .iconos{
+    height: 15rem;
+    width: 15rem;
+    background-color: var(--primario);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contacto */
+.formulario{
+background-color: var(--gris);
+width: min(60rem,100%); /* Utiliza el valor más pequeño, valora el tamaño de la ventana si mide +de 600px(60rem) el formulario
+ocupa el mínimo 60rem, si mide menos ocupa el 100% del width */
+margin: 0 auto; /* Margin 0 auto lo utilizo porque en este caso el contenedor padre no es un display:flex, entonces no tengo
+acceso a justify-content. El formulario tiene un display block por defecto */
+padding: 2rem;
+border-radius: 1rem;
+}
+
+.formulario fieldset{
+    border: none;
+}
+
+.formulario legend{
+    text-align: center;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--primario);
+}
+@media (min-width: 768px) {
+    .contenedor-campos{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto auto 20rem;
+        column-gap: 1rem;
+    }
+    .campo:nth-child(3),.campo:nth-child(4){/* nth-child me selecciona de 1 clase el número del hijo es decir si tengo 3 elementos con la clase campo
+        puedo elegir el 1, el 2 o el 3 y sólo aplicaría cambios sobre el seleccionado*/
+        grid-column: 1 / 3; /* En firefox se ve bien los grid, le estamos diciendo que vaya del punto 1 al punto 3 */
+
+    }
+}
+
+
+.campo{
+    margin-bottom: 1rem;
+}
+
+.campo label{
+    color: white;
+    font-weight: bold;
+    margin: .5rem;
+    display: block;
+}
+.campo textarea{
+    height: 20rem;
+}
+
+.input-text{
+    width: 100%;
+    border: none;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+}
+
+.footer{
+    text-align: center;
+}
